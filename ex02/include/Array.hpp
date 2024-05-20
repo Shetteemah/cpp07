@@ -59,7 +59,7 @@ Array<T>::~Array()
 template <typename T>
 Array<T> &Array<T>::operator=(const Array &src)
 {
-    std::cout << "Array: operator= initiated!" << std::endl;
+    std::cout << "Array: operator initiated!" << std::endl;
     if (this == &src)
         return (*this);
     delete[] this->_array;
