@@ -8,85 +8,98 @@
 template <typename T>
 class Array
 {
-    private:
-        T *_array;
-        unsigned int _size;
-    public:
-        Array();
-        Array(unsigned int n);
-        Array(const Array &copy);
-        ~Array();
-        Array &operator=(const Array &src);
-        T &operator[](unsigned int i);
-        unsigned int size() const;
+private:
+    T *_data;
+    unsigned int _length;
 
-        class OutOfLimits : public std::exception
-        {
-        public:
-            virtual const char *what() const throw();
-        };
+public:
+    Array();
+    Array(unsigned int size);
+    Array(const Array &copy);
+    ~Array();
+    Array &operator=(const Array &src);
+    T &operator[](unsigned int index);
+    const T &operator[](unsigned int index) const;
+    unsigned int size() const;
+
+    class OutOfBoundsException : public std::exception
+    {
+    public:
+        virtual const char *what() const throw();
+    };
 };
 
 template <typename T>
-Array<T>::Array() : _array(nullptr), _size(0)
+Array<T>::Array() : _data(nullptr), _length(0)
 {
-    std::cout << "Array default constructor" << std::endl;
+    std::cout << "Array default constructor called" << std::endl;
 }
 
 template <typename T>
-Array<T>::Array(unsigned int n) : _array(new T[n]), _size(n)
+Array<T>::Array(unsigned int size) : _data(new T[size]), _length(size)
 {
-    std::cout << "Array: " << n << " with size (" << this->_size << ") constructor" << std::endl;
-    for (unsigned int i = 0; i < n; i++)
-        this->_array[i] = T();
+    std::cout << "Array of size " << size << " created" << std::endl;
+    for (unsigned int i = 0; i < size; ++i)
+        _data[i] = T();
 }
 
 template <typename T>
-Array<T>::Array(const Array &copy) : _array(new T[copy._size]), _size(copy._size)
+Array<T>::Array(const Array &copy) : _data(new T[copy._length]), _length(copy._length)
 {
-    std::cout << "Array: copy constructor initiated!" << std::endl;
-    for (unsigned int i = 0; i < copy._size; i++)
-        this->_array[i] = copy._array[i];
+    std::cout << "Array copy constructor called" << std::endl;
+    for (unsigned int i = 0; i < _length; ++i)
+        _data[i] = copy._data[i];
 }
 
 template <typename T>
 Array<T>::~Array()
 {
-    delete[] this->_array;
-    std::cout << "Array destroyed!" << std::endl;
+    delete[] _data;
+    std::cout << "Array destructor called" << std::endl;
 }
 
 template <typename T>
 Array<T> &Array<T>::operator=(const Array &src)
 {
-    std::cout << "Array: operator initiated!" << std::endl;
+    std::cout << "Array assignment operator called" << std::endl;
     if (this == &src)
         return (*this);
-    delete[] this->_array;
-    this->_array = new T[src._size];
-    for (unsigned int i = 0; i < src._size; i++)
-        this->_array[i] = src._array[i];
-    this->_size = src._size;
+
+    delete[] _data;
+    _length = src._length;
+    _data = new T[_length];
+    for (unsigned int i = 0; i < _length; ++i)
+        _data[i] = src._data[i];
+
     return (*this);
 }
 
 template <typename T>
-T &Array<T>::operator[](unsigned int i)
+T &Array<T>::operator[](unsigned int index)
 {
-    if (i >= this->_size)
-        throw Array<T>::OutOfLimits();
-    return (this->_array[i]);
+    if (index >= _length)
+        throw OutOfBoundsException();
+    return (_data[index]);
+}
+
+template <typename T>
+const T &Array<T>::operator[](unsigned int index) const
+{
+    if (index >= _length)
+        throw OutOfBoundsException();
+    return (_data[index]);
 }
 
 template <typename T>
 unsigned int Array<T>::size() const
 {
-    return (this->_size);
+    return (_length);
 }
 
 template <typename T>
-const char *Array<T>::OutOfLimits::what() const throw()
+const char *Array<T>::OutOfBoundsException::what() const throw()
 {
-    return ("Error: Index is out of limits!");
+    return ("Array index out of bounds");
 }
+
 #endif

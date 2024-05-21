@@ -4,48 +4,47 @@ int main()
 {
     try
     {
-        Array<int> a;
-        Array<int> b(10);
-        Array<int> c(b);
+        Array<int> num1;
+        Array<int> num2(10);
+        Array<int> copiedNum(num2);
 
-        std::cout << "Size of a: " << a.size() << std::endl;
-        std::cout << "Size of b: " << b.size() << std::endl;
-        std::cout << "Size of c: " << c.size() << std::endl;
+        std::cout << "Size of num1: " << num1.size() << std::endl;
+        std::cout << "Size of num2: " << num2.size() << std::endl;
+        std::cout << "Size of copiedNum: " << copiedNum.size() << std::endl;
 
-        for (unsigned int i = 0; i < b.size(); i++)
+        for (unsigned int i = 0; i < num2.size(); ++i)
         {
-            b[i] = i * 2;
-            std::cout << "b[" << i << "] = " << b[i] << std::endl;
+            num2[i] = i * 3;
+            std::cout << "num2[" << i << "] = " << num2[i] << std::endl;
         }
 
-        c = b;
-        for (unsigned int i = 0; i < c.size(); i++)
+        copiedNum = num2;
+        for (unsigned int i = 0; i < copiedNum.size(); ++i)
         {
-            std::cout << "c[" << i << "] = " << c[i] << std::endl;
+            std::cout << "copiedNum[" << i << "] = " << copiedNum[i] << std::endl;
         }
 
         try
         {
-            std::cout << b[10] << std::endl;
+            std::cout << num2[10] << std::endl;
         }
-        catch (const std::exception &e)
+        catch (const std::exception &ex)
         {
-            std::cerr << e.what() << std::endl;
+            std::cerr << ex.what() << std::endl;
         }
 
-        Array<std::string> d(3);
-        d[0] = "Hello";
-        d[1] = "World";
-        d[2] = "!";
-        for (unsigned int i = 0; i < d.size(); i++)
+        Array<std::string> word(3);
+        word[0] = "Hi";
+        word[1] = "My";
+        word[2] = "Name";
+        for (unsigned int i = 0; i < word.size(); ++i)
         {
-            std::cout << "d[" << i << "] = " << d[i] << std::endl;
+            std::cout << "word[" << i << "] = " << word[i] << std::endl;
         }
-
     }
-    catch (const std::exception &e)
+    catch (const std::exception &ex)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << ex.what() << std::endl;
     }
     return (0);
 }

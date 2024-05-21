@@ -11,10 +11,10 @@ int main()
     std::cout << "\n";
 
     std::cout << "Array index:\n";
-    iter(int_array, sizeof(int_array) / sizeof(int_array[0]), ft_convert);
+    iter(int_array, sizeof(int_array) / sizeof(int_array[0]), intConverter);
     
     std::cout << "Array int values:\n";
-    iter(char_array, sizeof(char_array) / sizeof(char_array[0]), ft_convert);
+    iter(char_array, sizeof(char_array) / sizeof(char_array[0]), intConverter);
     
     return 0;
 }

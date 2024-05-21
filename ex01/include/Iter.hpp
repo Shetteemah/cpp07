@@ -13,9 +13,9 @@ void iter(T *array, int size, void function(const T &))
 }
 
 template <typename T>
-void ft_convert(const T &fun)
+void intConverter(const T &arg)
 {
-    std::cout << static_cast<int>(fun) << std::endl;
+    std::cout << static_cast<int>(arg) << std::endl;
 }
 
 #endif

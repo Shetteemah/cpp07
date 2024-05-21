@@ -11,24 +11,24 @@ void swap(T &a, T &b)
     temp = a;
     a = b;
     b = temp;
-
 }
 
 template<typename T>
 const T &min(const T &a, const T &b)
 {
-    if (b >= a)
+    if (!(b >= a))
+        return (b);
+    else
         return (a);
-    return (b);
 }
 
 template<typename T>
 const T &max(const T &a, const T &b)
 {
-    if (b <= a)
-        return (a);
-    else
+    if (!(b <= a))
         return (b);
+    else
+        return (a);
 }
 
 #endif
