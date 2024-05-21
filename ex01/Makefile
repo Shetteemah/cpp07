@@ -1,5 +1,5 @@
 NAME	= Iter
-CC		= g++
+CC		= c++
 CFLAGS	= -Werror -Wextra -Wall -std=c++98
 INCLUDE	= -I include
 
